@@ -33,7 +33,8 @@ export async function GET(req: Request, context: { params: { slug: string; feedb
     }
 */
 export async function PATCH(req: Request, context: { params: { slug: string; feedbackId: string } }) {
-  const { title, content, status, tags } = (await req.json()) as FeedbackWithUserInputProps;
+  // eslint-disable-next-line camelcase
+  const { title, content, status, tags, workspace_id } = (await req.json()) as FeedbackWithUserInputProps;
 
   const { data: feedback, error } = await updateFeedbackByID(
     context.params.feedbackId,
@@ -45,6 +46,8 @@ export async function PATCH(req: Request, context: { params: { slug: string; fee
       board_id: 'dummy-id',
       user_id: 'dummy-id',
       tags: tags || undefined,
+      // eslint-disable-next-line camelcase
+      workspace_id: workspace_id || '',
     },
     'route'
   );

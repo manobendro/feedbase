@@ -5,7 +5,6 @@ import { Avatar, AvatarFallback, AvatarImage } from '@feedbase/ui/components/ava
 import { Separator } from '@feedbase/ui/components/separator';
 import { cn } from '@feedbase/ui/lib/utils';
 import { BadgeCheck } from 'lucide-react';
-import { getCommentsForFeedbackById } from '@/lib/api/comment';
 import { getPublicWorkspaceFeedback } from '@/lib/api/public';
 import { getCurrentUser } from '@/lib/api/user';
 import { PROSE_CN, STATUS_OPTIONS } from '@/lib/constants';
@@ -69,7 +68,7 @@ export default async function FeedbackDetails({ params }: Props) {
   const { data: user } = await getCurrentUser('server');
 
   return (
-    <AnalyticsWrapper workspaceSlug={params.workspace} feedbackId={params.id}>
+    <AnalyticsWrapper className='mt-4' workspaceSlug={params.workspace} feedbackId={params.id}>
       {/* // Row Splitting up date and Content  */}
       <div className='relative flex w-full flex-row px-5 sm:px-10 md:px-8 lg:px-10' key={feedback.id}>
         <div className='flex h-full w-full flex-col md:w-5/6 md:border-r md:pr-5 lg:flex-row'>

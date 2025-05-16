@@ -5,7 +5,7 @@ module.exports = {
   parserOptions: {
     project: true,
   },
-  ignorePatterns: ['dist', '.eslintrc.js', 'postcss.config.js', 'tailwind.config.js'],
+  ignorePatterns: ['dist', '.eslintrc.js', 'postcss.config.js', 'tailwind.config.js', 'public/*.js'],
   settings: {
     'import/resolver': {
       typescript: {

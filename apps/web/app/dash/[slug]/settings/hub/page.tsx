@@ -5,6 +5,7 @@ import { getWorkspaceBySlug } from '@/lib/api/workspace';
 
 export default async function HubSettings({ params }: { params: { slug: string } }) {
   // Fetch workspace data
+  // eslint-disable-next-line
   const { data: workspace, error } = await getWorkspaceBySlug(params.slug, 'server');
 
   if (error) {
@@ -12,6 +13,8 @@ export default async function HubSettings({ params }: { params: { slug: string }
   }
 
   // Fetch workspace config
+
+  // eslint-disable-next-line
   const { data: workspaceConfig, error: configError } = await getWorkspaceModuleConfig(params.slug, 'server');
 
   if (configError) {

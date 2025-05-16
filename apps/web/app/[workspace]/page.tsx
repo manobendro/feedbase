@@ -68,7 +68,7 @@ export default async function Feedback({ params }: Props) {
   );
 
   return (
-    <AnalyticsWrapper className='items-center gap-9' workspaceSlug={params.workspace}>
+    <AnalyticsWrapper className='mt-9 items-center gap-9' workspaceSlug={params.workspace}>
       {/* Title, Description */}
       <div className='flex w-full px-5 sm:px-8 lg:px-14'>
         <div className='flex w-full flex-col items-start gap-2'>

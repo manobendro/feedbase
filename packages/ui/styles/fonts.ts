@@ -1,14 +1,15 @@
-import { Inter, JetBrains_Mono } from '@next/font/google'; // eslint-disable-line
 import localFont from '@next/font/local';
 
-export const fontSans = Inter({
-  subsets: ['latin'],
+export const fontSans = localFont({
+  src: './Inter.woff2',
   variable: '--font-sans',
+  weight: '100 800',
 });
 
-export const fontMono = JetBrains_Mono({
-  subsets: ['latin'],
+export const fontMono = localFont({
+  src: './JetBrains_Mono.woff2',
   variable: '--font-monospace',
+  weight: '100 800',
 });
 
 export const satoshi = localFont({

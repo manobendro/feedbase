@@ -172,15 +172,12 @@ export default function InboxPopover({ user }: { user: ProfileProps['Row'] }) {
     return (
       <Drawer>
         <DrawerTrigger>
-          <Button
-            variant='ghost'
-            size='icon'
-            className='text-foreground/70 hover:text-foreground relative h-8 w-8 rounded-full border'>
+          <div className='text-foreground/70 hover:text-foreground relative flex h-8 w-8 items-center justify-center rounded-full border'>
             <Bell className='h-4 w-4' />
             {inboxNotifications?.length !== 0 && !isLoading && (
               <span className='bg-foreground absolute -right-[1px] -top-[1px] h-2.5 w-2.5 rounded-full' />
             )}
-          </Button>
+          </div>
         </DrawerTrigger>
         <DrawerContent className='h-full max-h-[80%] w-full max-w-full p-0' hideDragger>
           <Tabs defaultValue='inbox' className='h-full w-full'>
@@ -221,15 +218,12 @@ export default function InboxPopover({ user }: { user: ProfileProps['Row'] }) {
   return (
     <Popover>
       <PopoverTrigger>
-        <Button
-          variant='ghost'
-          size='icon'
-          className='text-foreground/70 hover:text-foreground relative h-8 w-8 rounded-full border'>
+        <div className='text-foreground/70 hover:text-foreground relative flex h-8 w-8 items-center justify-center rounded-full border'>
           <Bell className='h-4 w-4' />
           {inboxNotifications?.length !== 0 && !isLoading && (
             <span className='bg-foreground absolute -right-[1px] -top-[1px] h-2.5 w-2.5 rounded-full' />
           )}
-        </Button>
+        </div>
       </PopoverTrigger>
       <PopoverContent align='end' className='min-h-[450px] w-[400px] p-0'>
         <Tabs defaultValue='inbox' className='h-full w-full'>

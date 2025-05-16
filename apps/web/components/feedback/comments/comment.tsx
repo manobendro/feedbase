@@ -32,9 +32,16 @@ interface CommentProps extends React.HTMLAttributes<HTMLDivElement> {
   commentData: CommentWithUserProps;
   workspaceSlug: string;
   children?: React.ReactNode;
+  loggedUser?: boolean;
 }
 
-export default function Comment({ commentData, workspaceSlug, children, ...props }: CommentProps) {
+export default function Comment({
+  commentData,
+  workspaceSlug,
+  children,
+  loggedUser = true,
+  ...props
+}: CommentProps) {
   const [comment, setComment] = useState<CommentWithUserProps>(commentData);
   const [isReplying, setIsReplying] = useState<boolean>(false);
   const [timeAgo, setTimeAgo] = useState<string>('');
@@ -155,26 +162,28 @@ export default function Comment({ commentData, workspaceSlug, children, ...props
         </div>
 
         {/* Actions */}
-        <DropdownMenu modal={false}>
-          <DropdownMenuTrigger asChild>
-            <Button
-              variant='ghost'
-              className='text-foreground/60 -mr-3 flex h-8 w-8 hover:bg-transparent'
-              size='icon'>
-              <MoreVertical className='h-4 w-4' />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align='end' className='w-[160px]'>
-            <DropdownMenuDestructiveItem
-              className='flex flex-row items-center gap-2'
-              onClick={() => {
-                deleteComment({ method: 'DELETE' });
-              }}>
-              <Trash2Icon className='h-4 w-4' />
-              Delete
-            </DropdownMenuDestructiveItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        {loggedUser && (
+          <DropdownMenu modal={false}>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant='ghost'
+                className='text-foreground/60 -mr-3 flex h-8 w-8 hover:bg-transparent'
+                size='icon'>
+                <MoreVertical className='h-4 w-4' />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align='end' className='w-[160px]'>
+              <DropdownMenuDestructiveItem
+                className='flex flex-row items-center gap-2'
+                onClick={() => {
+                  deleteComment({ method: 'DELETE' });
+                }}>
+                <Trash2Icon className='h-4 w-4' />
+                Delete
+              </DropdownMenuDestructiveItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        )}
       </div>
 
       <div className='flex h-fit w-full flex-row gap-5'>
@@ -204,7 +213,7 @@ export default function Comment({ commentData, workspaceSlug, children, ...props
               )}
               size='sm'
               onClick={() => {
-                upvoteComment({});
+                loggedUser && upvoteComment({});
               }}>
               <span
                 className={cn(
@@ -219,15 +228,17 @@ export default function Comment({ commentData, workspaceSlug, children, ...props
             </Button>
 
             {/* Reply Button */}
-            <Button
-              variant='ghost'
-              className='text-foreground/60 hover:text-highlight -ml-2 text-sm  hover:bg-transparent'
-              size='sm'
-              onClick={() => {
-                setIsReplying(!isReplying);
-              }}>
-              Reply
-            </Button>
+            {loggedUser && (
+              <Button
+                variant='ghost'
+                className='text-foreground/60 hover:text-highlight -ml-2 text-sm  hover:bg-transparent'
+                size='sm'
+                onClick={() => {
+                  setIsReplying(!isReplying);
+                }}>
+                Reply
+              </Button>
+            )}
 
             {/* Share Button */}
             <Button

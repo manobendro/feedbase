@@ -76,7 +76,7 @@ export default async function Changelogs({ params }: Props) {
   }
 
   return (
-    <AnalyticsWrapper className='flex h-full w-full flex-col gap-9' workspaceSlug={params.workspace}>
+    <AnalyticsWrapper className='mt-9 flex h-full w-full flex-col gap-9' workspaceSlug={params.workspace}>
       <div className='flex w-full flex-col gap-3 px-5 sm:px-8 lg:px-14'>
         {/* Title, Description */}
         <div className='flex w-full flex-col items-start gap-2'>

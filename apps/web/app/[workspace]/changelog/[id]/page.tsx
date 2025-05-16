@@ -83,7 +83,7 @@ export default async function ChangelogPage({ params }: Props) {
   }
 
   return (
-    <AnalyticsWrapper workspaceSlug={params.workspace} changelogId={changelog.id}>
+    <AnalyticsWrapper className='mt-4' workspaceSlug={params.workspace} changelogId={changelog.id}>
       {/* // Row Splitting up date and Content  */}
       <div
         className='relative flex w-full flex-col px-5 sm:px-10 md:flex-row md:px-10 lg:px-20'

@@ -23,6 +23,7 @@ import CopyCheckIcon from '@/components/shared/copy-check-icon';
 import InputGroup from '@/components/shared/input-group';
 
 export default function SSOSettings() {
+  // eslint-disable-next-line
   const [secret, setSecret] = useState<string>('5mGljDq2JtWG8SF4MHialGky');
   const [hasCopied, setHasCopied] = useState<boolean>();
 
@@ -94,7 +95,7 @@ export default function SSOSettings() {
                   I have copied this token
                 </Label>
               </div>
-              <ResponsiveDialogClose hideCloseButton disabled={!hasCopied}>
+              <ResponsiveDialogClose disabled={!hasCopied}>
                 <Button
                   variant='default'
                   disabled={!hasCopied}

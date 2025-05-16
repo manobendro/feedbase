@@ -91,8 +91,8 @@ export function AddChangelogModal({
           title: data.title || '',
           summary: data.summary || '',
           content: data.content || '',
-          image: data.thumbnail || null,
-          publish_date: data.publish_date || null,
+          thumbnail: data.thumbnail || null,
+          publish_date: data.publish_date || new Date().toISOString(),
           published: createType === 'publish',
           notify_subscribers: notifySubscribers,
         }),
@@ -153,8 +153,8 @@ export function AddChangelogModal({
           title: data.title || '',
           summary: data.summary || '',
           content: data.content || '',
-          image: data.thumbnail || null,
-          publish_date: data.publish_date || null,
+          thumbnail: data.thumbnail || null,
+          publish_date: data.publish_date || new Date().toISOString(),
           published: updateType === 'publish',
         }),
       })
@@ -372,20 +372,20 @@ export function AddChangelogModal({
 
               setAlertOpen(open);
             }}>
-            <AlertDialogTrigger>
-              <DefaultTooltip
-                content={
-                  findMissingFields().length > 0
-                    ? `Please fill out the following fields: ${findMissingFields().join(', ')}`
-                    : data.publish_date !== null && new Date(data.publish_date) > new Date()
-                    ? 'Changelog scheduling is coming soon!'
-                    : ''
-                }
-                disabled={
-                  findMissingFields().length === 0 &&
-                  !(data.publish_date !== null && new Date(data.publish_date) > new Date())
-                }
-                className='cursor-not-allowed'>
+            <DefaultTooltip
+              content={
+                findMissingFields().length > 0
+                  ? `Please fill out the following fields: ${findMissingFields().join(', ')}`
+                  : data.publish_date !== null && new Date(data.publish_date) > new Date()
+                  ? 'Changelog scheduling is coming soon!'
+                  : ''
+              }
+              disabled={
+                findMissingFields().length === 0 &&
+                !(data.publish_date !== null && new Date(data.publish_date) > new Date())
+              }
+              className='cursor-not-allowed'>
+              <AlertDialogTrigger asChild>
                 <Button
                   disabled={
                     findMissingFields().length > 0 ||
@@ -398,8 +398,8 @@ export function AddChangelogModal({
                   {/* If publish date is in the future, show "Schedule" else "Publish" */}
                   {data.publish_date && new Date(data.publish_date) > new Date() ? 'Schedule' : 'Publish'}
                 </Button>
-              </DefaultTooltip>
-            </AlertDialogTrigger>
+              </AlertDialogTrigger>
+            </DefaultTooltip>
             <AlertDialogContent>
               <AlertDialogHeader>
                 <AlertDialogTitle>Publish Changelog</AlertDialogTitle>

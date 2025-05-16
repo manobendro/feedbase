@@ -18,7 +18,7 @@ import {
 import { cn } from '@feedbase/ui/lib/utils';
 import { ChevronUp } from 'lucide-react';
 import { WorkspaceThemeProps } from '@/lib/types';
-import { hexToHSL, hslToHex } from '@/lib/utils';
+import { hexToHSL } from '@/lib/utils';
 import { Icons } from '@/components/shared/icons/icons-static';
 
 // Helper component

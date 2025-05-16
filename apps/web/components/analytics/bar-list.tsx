@@ -105,7 +105,8 @@ export default function BarList({ data, showData, title, maxItems }: BarListProp
               </div>
 
               <ResponsiveDialogFooter className='border-t px-4 sm:px-8 sm:py-4'>
-                <ResponsiveDialogClose className='w-full' hideCloseButton>
+                {/* Removed hideCloseButton */}
+                <ResponsiveDialogClose className='w-full'>
                   <Button
                     variant='outline'
                     size='sm'

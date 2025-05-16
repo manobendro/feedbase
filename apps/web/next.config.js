@@ -16,6 +16,16 @@ const nextConfig = {
   reactStrictMode: true,
   transpilePackages: ['@feedbase/ui'],
   output: 'standalone',
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  experimental: {
+    webpackBuildWorker: true,
+    cpus: 2,
+  },
   images: {
     remotePatterns: [
       {

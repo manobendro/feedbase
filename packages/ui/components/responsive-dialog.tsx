@@ -61,20 +61,28 @@ const ResponsiveDialogContent: React.FC<
 };
 
 const ResponsiveDialogClose: React.FC<
+  // Props for DialogClose (the X icon) or DrawerClose (can be X or custom via asChild)
+  // or DialogCloseWrapper (custom close button for dialog)
+  | React.ComponentProps<typeof DialogClose>
+  | React.ComponentProps<typeof DrawerClose>
   | React.ComponentProps<typeof DialogCloseWrapper>
-  | (React.ComponentProps<typeof DrawerClose> & { hideCloseButton?: boolean })
 > = (props) => {
-  const { hideCloseButton, ...rest } = props as { hideCloseButton?: boolean };
+  const { children, ...rest } = props;
+
   return useMediaQuery().isMobile ? (
-    <DrawerClose {...rest} asChild />
+    // For mobile, DrawerClose handles both cases: if children, use asChild; if not, it's a trigger itself.
+    <DrawerClose {...rest} asChild={!!children}>
+      {children}
+    </DrawerClose>
+  ) : // For desktop: if children, wrap them to be the close trigger. If no children, render the default X.
+  children ? (
+    <DialogCloseWrapper {...rest} asChild>
+      {children}
+    </DialogCloseWrapper>
   ) : (
-    <>
-      <DialogCloseWrapper {...rest} />
-      {!hideCloseButton && <DialogClose />}
-    </>
+    <DialogClose {...rest} />
   );
 };
-
 export {
   ResponsiveDialog,
   ResponsiveDialogTrigger,

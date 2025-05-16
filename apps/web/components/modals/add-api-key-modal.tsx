@@ -78,7 +78,7 @@ export default function AddApiKeyDialog({
         setOpen(false);
         mutateKeys();
         setTokenOpen(true);
-        setToken(data.token);
+        setToken(data.short_token || '');
       })
       .catch((error) => {
         setIsLoading(false);
@@ -90,7 +90,7 @@ export default function AddApiKeyDialog({
     <>
       {/* Create Dialog */}
       <ResponsiveDialog open={disabled ? false : open} onOpenChange={setOpen}>
-        <ResponsiveDialogTrigger>{children}</ResponsiveDialogTrigger>
+        <ResponsiveDialogTrigger asChild>{children}</ResponsiveDialogTrigger>
         <ResponsiveDialogContent className='sm:max-w-[425px]'>
           <form
             onSubmit={(event) => {

@@ -49,10 +49,15 @@ export default function CommentsList({
 
   // Render comments recursively
   const renderComments = useCallback(
-    (comments: CommentWithUserProps[] | undefined) => {
+    (comments: CommentWithUserProps[] | undefined, loggedUser: boolean) => {
       return comments?.map((comment: CommentWithUserProps) => (
-        <Comment commentData={comment} workspaceSlug={workspaceSlug} key={comment.id} id={comment.id}>
-          {renderComments(comment.replies)}
+        <Comment
+          commentData={comment}
+          loggedUser={loggedUser}
+          workspaceSlug={workspaceSlug}
+          key={comment.id}
+          id={comment.id}>
+          {renderComments(comment.replies, loggedUser)}
         </Comment>
       ));
     },
@@ -140,7 +145,9 @@ export default function CommentsList({
         {/* BUG: This currently forces re-render on each render, a possible way is to also include it in the useCallback but then change logic for scrolling down as it takes a bit until mounted */}
         {/* Comments */}
         {(comments?.length ?? 0) > 0 && !loading && !error && (
-          <div className='flex h-full w-full flex-col gap-5'>{renderComments(sortedComments)}</div>
+          <div className='flex h-full w-full flex-col gap-5'>
+            {renderComments(sortedComments, isLoggedIn)}
+          </div>
         )}
 
         {/* Empty State */}

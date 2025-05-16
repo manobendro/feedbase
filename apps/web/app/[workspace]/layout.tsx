@@ -1,15 +1,12 @@
 import { Metadata } from 'next';
 import { headers } from 'next/headers';
 import { notFound, redirect } from 'next/navigation';
-import { Separator } from '@feedbase/ui/components/separator';
 import { getWorkspaceBoards } from '@/lib/api/boards';
 import { getWorkspaceModuleConfig } from '@/lib/api/module';
 import { getWorkspaceTheme } from '@/lib/api/theme';
 import { getCurrentUser } from '@/lib/api/user';
 import { getWorkspaceBySlug } from '@/lib/api/workspace';
 import Header from '@/components/layout/nav-bar';
-import CustomThemeWrapper from '@/components/layout/theme-wrapper';
-import { ThemeProvider as NextThemeProvider } from '@/components/theme-provider';
 
 type Props = {
   children: React.ReactNode;
@@ -46,13 +43,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 const tabs: { name: string; link: string; items?: { name: string; link: string }[] }[] = [
   {
-    name: 'Boards',
+    name: 'Feedback',
     link: '/',
-    items: [],
   },
   {
     name: 'Roadmap',
-    link: '/feedback',
+    link: '/roadmap',
   },
   {
     name: 'Changelog',
@@ -85,10 +81,10 @@ export default async function HubLayout({ children, params, searchParams }: Prop
   }
 
   // Set workspace boards to tabs
-  tabs[0].items = boards.map((board) => ({
-    name: board.name,
-    link: `/board/${board.name.toLowerCase().replace(/\s+/g, '-')}`,
-  }));
+  // tabs[0].items = boards.map((board) => ({
+  //   name: board.name,
+  //   link: `/board/${board.name.toLowerCase().replace(/\s+/g, '-')}`,
+  // }));
 
   // Get workspace config
   const { data: config } = await getWorkspaceModuleConfig(params.workspace, 'server', true, false);
@@ -133,7 +129,7 @@ export default async function HubLayout({ children, params, searchParams }: Prop
 
   return (
     // <CustomThemeWrapper >
-    <div className='flex h-full w-full flex-col items-center'>
+    <div className='flex h-full w-full flex-auto flex-col items-center'>
       {/* Header */}
       <Header
         tabs={tabs}
@@ -144,7 +140,7 @@ export default async function HubLayout({ children, params, searchParams }: Prop
       />
 
       {/* Main content */}
-      <div className='flex h-full w-full flex-col items-start justify-start py-8 pt-[5.5rem] lg:max-w-screen-xl'>
+      <div className='mt-14 flex h-full w-full flex-1 flex-col items-start justify-start lg:max-w-screen-xl'>
         {children}
       </div>
     </div>

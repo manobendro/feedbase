@@ -16,12 +16,12 @@ export const runtime = 'edge';
     }
 */
 export async function PUT(req: Request, context: { params: { slug: string; id: string } }) {
-  const { title, summary, content, image, publishDate, published } = await req.json();
+  const { title, summary, content, thumbnail, publishDate, published } = await req.json();
 
   const { data: changelog, error } = await updateChangelog(
     context.params.id,
     context.params.slug,
-    { title, summary, content, image, publish_date: publishDate, published },
+    { title, summary, content, thumbnail, publish_date: publishDate, published },
     'route'
   );
 

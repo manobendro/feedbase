@@ -48,9 +48,19 @@ export default function TeamSettings({ params }: { params: { slug: string } }) {
 
   if (memberError || inviteError) {
     return memberError ? (
-      <FetchError error={memberError} mutate={mutateMember} isValidating={isValidatingMember} />
+      <FetchError
+        name='Team Members'
+        error={memberError}
+        mutate={mutateMember}
+        isValidating={isValidatingMember}
+      />
     ) : (
-      <FetchError error={inviteError} mutate={inviteMutate} isValidating={inviteIsValidating} />
+      <FetchError
+        name='Team Invites'
+        error={inviteError}
+        mutate={inviteMutate}
+        isValidating={inviteIsValidating}
+      />
     );
   }
 

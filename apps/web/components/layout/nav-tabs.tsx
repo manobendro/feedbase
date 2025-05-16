@@ -23,15 +23,38 @@ export default function NavTabs({
 
   // Check current active tab based on url
   useEffect(() => {
-    // Check if any of the tab slugs are in the pathname
     const rawTabs = Object.values(tabs).flat();
-    const currentTab = rawTabs.findIndex((tab) => pathname.includes(tab.slug));
+    let bestMatchSlug: string | undefined = undefined;
+    let longestMatchPathLength = -1; // Use -1 to ensure any valid path is longer
 
-    // If tab is found, set it as active
-    if (currentTab !== -1) {
-      setActiveTab(rawTabs[currentTab].slug);
+    for (const tab of rawTabs) {
+      // Construct the expected full path for this tab based on its slug
+      const tabExpectedPath = `/${workspaceSlug}/${tab.slug}`;
+
+      // Check if the current pathname starts with this tab's expected path
+      if (pathname.startsWith(tabExpectedPath)) {
+        // To be a valid match, it must be either an exact match,
+        // or the character in pathname immediately after tabExpectedPath must be '/'
+        const isExactMatch = pathname.length === tabExpectedPath.length;
+        const isPrefixMatch = pathname.charAt(tabExpectedPath.length) === '/';
+
+        if (isExactMatch || isPrefixMatch) {
+          // This tab is a candidate. If its path is longer than the previous
+          // best match, it's a more specific match.
+          if (tabExpectedPath.length > longestMatchPathLength) {
+            longestMatchPathLength = tabExpectedPath.length;
+            bestMatchSlug = tab.slug;
+          }
+        }
+      }
     }
-  }, [pathname, tabs]);
+
+    if (bestMatchSlug) {
+      setActiveTab(bestMatchSlug);
+    }
+    // If no match is found, activeTab remains unchanged. This means if navigating
+    // to a URL not covered by any tab's hierarchy, the last active tab stays highlighted.
+  }, [pathname, tabs, workspaceSlug]);
 
   return (
     <div className='flex flex-col gap-5'>

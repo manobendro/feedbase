@@ -45,7 +45,9 @@ export async function GET(req: Request, context: { params: { slug: string; feedb
   const { data: comments, error } = await getCommentsForFeedbackById(
     context.params.feedbackId,
     context.params.slug,
-    'route'
+    'route',
+    //Public access login data not required login
+    false
   );
 
   // If any errors thrown, return error

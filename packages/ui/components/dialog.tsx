@@ -68,9 +68,9 @@ DialogClose.displayName = DialogPrimitive.Close.displayName;
 
 const DialogCloseWrapper = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Close>,
-  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Close>
->(({ className, children, ...props }, ref) => (
-  <DialogPrimitive.Close ref={ref} className={className} {...props}>
+  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Close> & { asChild?: boolean }
+>(({ className, children, asChild, ...props }, ref) => (
+  <DialogPrimitive.Close ref={ref} className={className} {...props} asChild={asChild}>
     {children}
   </DialogPrimitive.Close>
 ));
